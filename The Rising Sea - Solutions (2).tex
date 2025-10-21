@@ -1,0 +1,1099 @@
+\documentclass{amsart}
+\usepackage{amsmath,amsthm,amsfonts,latexsym,amssymb,amscd, tikz-cd, mathrsfs, verbatim}
+\input xy
+\xyoption{all}
+
+
+\pagestyle{headings}
+%
+\setlength{\textwidth}{36true pc}
+\setlength{\headheight}{8true pt} % needed for 12pt documents
+\setlength{\oddsidemargin}{0 truept}
+\setlength{\evensidemargin}{0 truept}
+\setlength{\textheight}{572true pt}
+
+
+\usepackage{amsmath}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+\newtheorem{example}{Example}
+\newtheorem{question}{Question}
+\newtheorem{fact}{Fact}
+\newtheorem*{exercise*}{Exercise}
+\newtheorem{axiom}{Axiom}
+
+\renewcommand*{\proofname}{Solution}
+
+\newcommand{\es}{\mathcal{S}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\colim}{\mathrm{colim}}
+
+
+\begin{document}
+\pagestyle{empty}
+\begin{center} \textbf{The Rising Sea - Solutions} \end{center}
+
+%% General exercise template
+
+\begin{comment}
+
+%%%%%%%%%%%%%% X.Y.Z %%%%%%%%%%%%%%
+
+\begin{exercise*}[X.Y.Z]
+    
+\end{exercise*}
+
+\begin{proof}
+
+\end{proof}
+
+\vspace{0.1in}
+
+\end{comment}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Chapter 1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%% 1.2.G %%%%%%%%%%%%%%
+
+\begin{exercise*}[1.2.G]
+    Show that $\Z/\langle 10\rangle\otimes_\Z\Z/\langle 12\rangle\cong \Z/\langle 2\rangle$.
+\end{exercise*}
+
+\vspace{0.1in}
+
+\begin{proof}
+		The general proof is written here since I think it makes what is going on more clear. Fix $m,n\in \Z$ integers and let $d=gcd(m, n)$. Since $m$ and $n$ are both $0$ mod $d$, it follows that there is a well-defined bilinear map $\Z/m\Z\times\Z/n\Z\rightarrow\Z/d\Z$ given by $(a, b)\mapsto ab$. By the universal property for tensor products, this induces a map $\alpha:\Z/m\Z\otimes_\Z\Z/n\Z\rightarrow \Z/d\Z$. There is a map $\Z\rightarrow \Z/m\Z\otimes_\Z\Z/n\Z$ given by $a\mapsto a\otimes1$. Since $d=gcd(m, n)$, there are integers $u, v$ such that $d=um+vm$. Since:
+    \begin{align*}
+        d\otimes 1 &= d(1\otimes 1) \\
+        &= (um+vn)(1\otimes 1) \\
+        &= um(1\otimes 1) + vn(1\otimes 1) \\
+        &= (um)\otimes 1 + 1\otimes (vn) \\
+        &= 0\otimes 1 + 1 \otimes 0 \\
+        &= 0
+    \end{align*}
+    This implies the map $\Z\rightarrow \Z/m\Z\otimes_\Z\Z/n\Z$ sends $d\Z$ to zero, and hence yields a map $\beta:\Z/d\Z\rightarrow \Z/m\Z\otimes_\Z\Z/n\Z$. It can be verified that $\alpha$ and $\beta$ are inverses, implying that $\Z/m\Z\otimes_\Z\Z/n\Z\cong \Z/gcd(m, n)\Z$. 
+\end{proof}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 1.2.H %%%%%%%%%%%%%%
+
+\begin{exercise*}[1.2.H]
+    Show that $(-)\otimes_AN$ gives a covariant function $\mathrm{Mod}_A\rightarrow\mathrm{Mod}_A$. Show that $(-)\otimes_AN$ is a \textbf{right-exact} functor, i.e., if
+    \begin{center}
+        \begin{tikzcd}
+            M' \arrow[r] & M \arrow[r] & M'' \arrow[r] & 0
+        \end{tikzcd}
+    \end{center}
+    is an exact sequence of $A$-modules, then the induced sequence
+    \begin{center}
+        \begin{tikzcd}
+            M'\otimes_A N \arrow[r] & M\otimes_A N \arrow[r] & M''\otimes_A N \arrow[r] & 0
+        \end{tikzcd}
+    \end{center}
+    is also exact.
+\end{exercise*}
+
+\vspace{0.1in}
+
+\begin{proof}
+		Let the maps in the original exact sequence be denoted by $f:M'\rightarrow M$, $g:M\rightarrow M''$. The maps $f\otimes_R N:M'\otimes_{R}N\rightarrow M\otimes_R N$ and $g\otimes_R N:M\otimes_R N\rightarrow M''\otimes_R N$ are then given on simple tensors $m'\otimes n\in M'\otimes_R N$ and $m\otimes n\in M\otimes_R N$ by:
+    \begin{align*}
+        (f\otimes_R N)(m'\otimes n) &= f(m')\otimes n \\
+        (g\otimes_R N)(m\otimes n) &= g(m)\otimes n
+    \end{align*}
+    For exactness at $M''\otimes_R N$ it suffices to show that $g\otimes_R N$ is surjective. For this, since each element $M''\otimes_R N$ is a finite sum of simple tensors, it suffices to show that each $m\otimes n\in M''\otimes_R N$ is in the image of $g\otimes_R N$. By the exactness of the original sequence, $g$ is surjective. So, there is some $a\in M$ such that $g(a)=m$. By definition this implies that $(g\otimes_R N)(a\otimes n)=g(a)\otimes n=m\otimes n$, showing $g\otimes_R N$ is surjective. 
+
+    \vspace{0.1in}
+
+    For exactness at $M\otimes_R N$, we must show $\mathrm{im}(f\otimes_R N)=\ker(g\otimes_R N)$. Let $L=\mathrm{im}(f\otimes_R N)$. Then there is a well-defined map $(M\otimes_R N)/L\rightarrow M''\otimes_R N$, which is well defined since functionality of the tensor product implies $\mathrm{im}(f\otimes_R N)\subseteq \ker(g\otimes_R N)$. We now define a map $M''\otimes_R N\rightarrow (M\otimes_RN)/L$ by sending a simple tensor $m\otimes n$ to the class of $a\otimes n$ where $a\in M$ is an element such that $g(a)=m$ (this is well-defined as we are mapping to $M\otimes_R N$ mod $L$). The composition $(M\otimes_RN)/L\rightarrow M''\otimes_RN\rightarrow(M\otimes_RN)/L$ is the identity, showing that the map $(M\otimes_RN)/L\rightarrow M''\otimes_R N$ is injective. Since this is the map induced by $g\otimes_R N$, this implies that $\ker(g\otimes_R N)\subseteq L=\mathrm{im}(f\otimes_R N)$, completing the proof.  
+\end{proof}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 1.2.K %%%%%%%%%%%%%%
+
+\begin{exercise*}[1.2.K]
+    \begin{enumerate}
+        \item[(a)] If $M$ is an $A$-module and $A\rightarrow B$ is a morphism of rings, give $B\otimes_A M$ the structure of a $B$-module (this is part of the exercise). Show that this describes a functor $\mathrm{Mod}_A\rightarrow \mathrm{Mod}_B$.
+
+        \item[(b)] If further $A\rightarrow C$ is another morphism of rings, show that $B\otimes_A C$ has a natural ring structure of a ring. Hint: multiplication will be given by $(b_1\otimes c_1)(b_2\otimes c_2)=(b_1b_2)\otimes(c_1c_2)$.
+    \end{enumerate}
+\end{exercise*}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 1.2.L %%%%%%%%%%%%%%
+
+\begin{exercise*}[1.2.L]
+    If $S$ is a multiplicative subset of $A$ and $M$ is an $A$-module, describe a natural isomorphism $(S^{-1}A)\otimes_A M\rightarrow S^{-1}M$ (as $S^{-1}A$-modules and as $A$-modules).
+\end{exercise*}
+
+\vspace{0.1in}
+
+\begin{proof}
+	
+\end{proof}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 1.2.Q %%%%%%%%%%%%%%
+
+\begin{exercise*}[1.2.Q]
+    If the two squares in the following commutative diagram are Cartesian diagrams, show that the "outside rectangle" (involving $U$, $V$, $Y$, and $Z$) is also a Cartesian diagram. 
+    \begin{equation*}
+        \begin{tikzcd}
+            U \arrow[r] \arrow[d] & V \arrow[d] \\
+            W \arrow[r] \arrow[d] & X \arrow[d]\\
+            Y \arrow[r] & Z
+        \end{tikzcd}
+    \end{equation*}
+\end{exercise*}
+
+\vspace{0.1in}
+
+\begin{proof}
+    For the sake of convenience we label all the maps above:
+    \begin{equation} \tag{1}
+        \begin{tikzcd}
+            U \arrow[r, "f"] \arrow[d, "i"] & V \arrow[d, "k"] \\
+            W \arrow[r, "g"] \arrow[d, "j"] & X \arrow[d,"l"]\\
+            Y \arrow[r, "h"] & Z
+        \end{tikzcd}
+    \end{equation}
+    To now show that the outermost square is Cartesian, we assume we are given an object $A$ with maps $\varphi:A\rightarrow V$ and $\varphi':A\rightarrow Y$ such that the following diagram commutes.
+    \begin{equation} \tag{2}
+        \begin{tikzcd}
+            A \arrow[r, "\varphi"] \arrow[d, "\varphi'"] & V \arrow[d, "lk"] \\
+            Y \arrow[r, "h"] & Z
+        \end{tikzcd}
+    \end{equation}
+    We then must show there is a unique map $\beta:A\rightarrow U$ such that the following diagram commutes. 
+    \begin{equation*}
+        \begin{tikzcd}
+            A \arrow[drr, "\varphi", bend left] \arrow[rdd, "\varphi'"', bend right] \arrow[rd, "\beta"] & &  \\
+            & U \arrow[r, "f"] \arrow[d, "ji"] & V \arrow[d, "lk"] \\
+            & Y \arrow[r, "h"] & Z
+        \end{tikzcd}
+    \end{equation*}
+    To start off, we consider the diagram:
+    \begin{equation*}
+        \begin{tikzcd}
+            A \arrow[r, "k\varphi"] \arrow[d, "\varphi'"] & X \arrow[d, "l"] \\
+            Y \arrow[r, "h"] & Z
+        \end{tikzcd}
+    \end{equation*}
+    The commutativity of diagram (2) implies this diagram commutes. Hence as the bottom square of diagram (1) is Cartesian, it follows there is a unique map $\alpha:A\rightarrow W$ fitting into a commutative diagram:
+    \begin{equation} \tag{3}
+        \begin{tikzcd}
+            A \arrow[drr, "k\varphi", bend left] \arrow[rdd, "\varphi'"', bend right] \arrow[rd, "\alpha"] & &  \\
+            & W \arrow[r, "g"] \arrow[d, "j"] & X \arrow[d, "l"] \\
+            & Y \arrow[r, "h"] & Z
+        \end{tikzcd}
+    \end{equation}
+    We now consider the diagram:
+    \begin{equation*}
+        \begin{tikzcd}
+            A \arrow[r, "\varphi"] \arrow[d, "\alpha"] & V \arrow[d, "k"] \\
+            W \arrow[r, "g"] & X
+        \end{tikzcd}
+    \end{equation*}
+    The commutativity of diagram (3) implies this diagram commutes. Hence as the top square of diagram (1) is Cartesian, it follows there is a unique map $\beta:A\rightarrow U$ such that the following diagram commutes.
+    \begin{equation} \tag{4}
+        \begin{tikzcd}
+            A \arrow[drr, "\varphi", bend left] \arrow[rdd, "\alpha"', bend right] \arrow[rd, "\beta"] & &  \\
+            & U \arrow[r, "f"] \arrow[d, "i"] & V \arrow[d, "k"] \\
+            & W \arrow[r, "g"] & X
+        \end{tikzcd}
+    \end{equation}
+    We now claim that the diagram:
+    \begin{equation*}
+        \begin{tikzcd}
+            A \arrow[drr, "\varphi", bend left] \arrow[rdd, "\varphi'"', bend right] \arrow[rd, "\beta"] & &  \\
+            & U \arrow[r, "f"] \arrow[d, "ji"] & V \arrow[d, "lk"] \\
+            & Y \arrow[r, "h"] & Z
+        \end{tikzcd}
+    \end{equation*}
+    commutes. For this, it suffices to show that $f\beta=\varphi$ and $ji\beta=\varphi'$. These follow from the commutativity of diagrams (3) and (4). It remains to show that $\beta$ is the unique such map making the above diagram commute. So, suppose there was another map $\beta':A\rightarrow U$ making the above diagram commute. We then look at the following diagrams:
+    \begin{equation*}
+        \begin{tikzcd}
+            A \arrow[rrd, "k\varphi", bend left] \arrow[rd, "i\beta'"] \arrow[ddr, "\varphi'"', bend right] & & & & A \arrow[rrd, "\varphi", bend left] \arrow[rd, "\beta'"] \arrow[ddr, "\alpha"', bend right] & & \\
+            & W \arrow[r, "g"] \arrow[d, "j"] & X \arrow[d, "l"] & & & U \arrow[r, "f"] \arrow[d, "i"] & V \arrow[d, "k"] \\
+            & Y \arrow[r, "h"] & Z & & & W \arrow[r, "g"] & X
+        \end{tikzcd}
+    \end{equation*}
+    The diagram on the left commutes by our hypothesis on $\beta'$, and so the uniqueness of $\alpha$ in diagram (3) implies that $i\beta'=\alpha$. Hence together with the commutativity of diagram (1), this implies that the diagram on the right also commutes. Thus, the uniqueness of $\beta$ in diagram (4) implies that $\beta=\beta'$, proving uniqueness. 
+\end{proof}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 1.2.S %%%%%%%%%%%%%%
+
+\begin{exercise*}[1.2.S]
+    Suppose we are given morphisms $X_1, X_2\rightarrow Y$ and $Y\rightarrow Z$. Show that the following diagram is a Cartesian square. 
+    \begin{center}
+        \begin{tikzcd}
+            X_1\times_Y X_2 \arrow[r] \arrow[d] & X_1\times_Z X_2 \arrow[d] \\
+            Y \arrow[r] & Y\times_Z Y 
+        \end{tikzcd}
+    \end{center}
+    Assume all relevant fiber products exist. 
+\end{exercise*}
+
+\vspace{0.1in}
+
+\begin{proof}
+    We first explain where all the maps in the above diagram are coming from. So, we give names to all of our morphisms:
+    \begin{equation*} \tag{1}
+        \begin{tikzcd}
+            X_1\times_Y X_2 \arrow[r, "\pi_2"] \arrow[d, "\pi_1"] & X_2 \arrow[d, "f_2"] & X_1\times_Z X_2 \arrow[r, "\rho_2"] \arrow[d, "\rho_1"] & X_2 \arrow[d, "gf_2"] & Y\times_Z Y \arrow[r, "\sigma_2"] \arrow[d, "\sigma_1"] & Y \arrow[d, "g"] \\
+            X_1 \arrow[r, "f_1"] & Y & X_1 \arrow[r, "gf_1"] & Z & Y \arrow[r, "g"] & Z
+        \end{tikzcd}
+    \end{equation*}
+    The morphisms $\alpha:X_1\times_YX_2\rightarrow X_1\times_ZX_2$, $\beta:X_1\times_ZX_2\rightarrow Y\times_ZY$, $\gamma:Y\rightarrow Y\times_ZY$ (in that order) are the morphisms induced by the universal property of fiber products and the commutative diagrams (from left to right):
+    \begin{equation*}
+        \begin{tikzcd}
+            X_1\times_Y X_2 \arrow[r, "\pi_2"] \arrow[d, "\pi_1"] & X_2 \arrow[d, "gf_2"] & X_1\times_Z X_2 \arrow[r, "f_2\rho_2"] \arrow[d, "f_1\rho_1"] & Y \arrow[d, "g"] & Y \arrow[r, "1_Y"] \arrow[d, "1_Y"] & Y \arrow[d, "g"] \\
+            X_1 \arrow[r, "gf_1"] & Z & Y \arrow[r, "g"] & Z & Y \arrow[r, "g"] & Z
+        \end{tikzcd}
+    \end{equation*}
+    and the morphism $X_1\times_YX_2\rightarrow Y$ is the composite map $f_1\pi_1$ (or equivalently the map $f_2\pi_2$). First we verify that the diagram of interest even commutes in the first place, i.e. that $\gamma f_1\pi_1 = \beta\alpha$. I found this confusing, but this will follow exactly from how the maps $\alpha$, $\beta$, and $\gamma$ are defined from the universal property for fiber products. In particular, we look at the diagram:
+    \begin{equation*}
+        \begin{tikzcd}
+            X_1\times_YX_2 \arrow[rrd, "f_2\pi_2", bend left] \arrow[rd, "\gamma f_1\pi_1", bend left] \arrow[rd, "\beta\alpha", bend right] \arrow[ddr, "f_1\pi_1"', bend right] & & \\
+            & Y\times_Z Y \arrow[r, "\sigma_2"] \arrow[d, "\sigma_1"] & Y \arrow[d, "g"] \\
+            & Y \arrow[r, "g"] & Z 
+        \end{tikzcd}
+    \end{equation*}
+    We claim this diagram commutes. The equality $gf_1\pi_1=gf_2\pi_2$ follows from the equality $f_1\pi_1=f_2\pi_2$ from the left most square of diagram (1). For the equality $\sigma_2\gamma f_1\pi_1=f_2\pi_2$, it follows from the definition of $\gamma$ which implies that $\sigma_2\gamma=1_Y$ and the commutativity of the left most square of diagram (1). A similar reason implies that $\sigma_1\gamma f_1\pi_1=f_1\pi_1$. For the equality $\sigma_2\beta\alpha=f_2\pi_2$ we use the definition of $\beta$ and the definition of $\alpha$ so that:
+    \begin{align*}
+        \sigma_2\beta\alpha=f_2\rho_2\alpha=f_2\pi_2
+    \end{align*}
+    A similar reason shows that $\sigma_1\beta\alpha=f_1\pi_1$. Then, the uniqueness coming from the universal property of fiber products implies that $\gamma f_1\pi_1=\beta\alpha$, as desired. 
+
+    \vspace{0.1in}
+    
+    Now we verify that the desired diagram is Cartesian. So, now we assume we are given an object $A$ and morphisms $h:A\rightarrow X_1\times_Z X_2$ and $h':A\rightarrow Y$ such that the following diagram commutes:
+    \begin{equation*}
+        \begin{tikzcd}
+            A \arrow[r, "h"] \arrow[d, "h'"] & X_1\times_ZX_2 \arrow[d, "\beta"] \\
+            Y \arrow[r, "\gamma"] & Y\times_ZY 
+        \end{tikzcd}
+    \end{equation*}
+    We can the consider the diagram:
+    \begin{equation*}
+        \begin{tikzcd}
+            A \arrow[r, "\rho_2 h"] \arrow[d, "\rho_1 h"] & X_2 \arrow[d, "f_2"]\\
+            X_1 \arrow[r, "f_1"] & Y
+        \end{tikzcd}
+    \end{equation*}
+    This diagram commutes since:
+    \begin{align*}
+        f_2\rho_2h &= \sigma_2\beta h \tag{definition of $\beta$} \\
+        &= \sigma_2\gamma h' \\
+        &= 1_Yh' \tag{definition of $\gamma$} \\
+        &= \sigma_1\gamma h' \tag{definition of $\gamma$} \\
+    \end{align*}
+    Then for the same reason the first two equalities hold, it follows that $f_2\rho_2h=f_1\rho_1h$ as desired. So, there is a unique map $F:A\rightarrow X_1\times_YX_2$ making the following diagram commute:
+    \begin{equation*}
+        \begin{tikzcd}
+            A \arrow[rrd, "\rho_2 h", bend left] \arrow[rd, "F"] \arrow[ddr, "\rho_1 h"', bend right] & & \\
+            & X_1\times_Y X_2 \arrow[r, "\pi_2"] \arrow[d, "\pi_1"] & X_2 \arrow[d, "f_2"] \\
+            & X_1 \arrow[r, "f_1"] & Y
+        \end{tikzcd}
+    \end{equation*}
+    It follows then that the following diagram commutes:
+    \begin{equation*}
+        \begin{tikzcd}
+            A \arrow[rrd, "h", bend left] \arrow[rd, "F"] \arrow[ddr, "h'"', bend right] & & \\
+            & X_1\times_Y X_2 \arrow[r, "\alpha"] \arrow[d, "f_1\pi_1"] & X_2 \arrow[d, "\beta"] \\
+            & X_1 \arrow[r, "\gamma"] & Y\times_ZY
+        \end{tikzcd}
+    \end{equation*}
+    (this just uses the universal property for fiber products a few times). Then the uniqueness of this map $F$ also follows from using the universal property of fiber products. I can write it out if anyone wants, but it is just the universal property being applied a bit.  
+\end{proof}
+
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 1.2.Y %%%%%%%%%%%%%%
+
+\begin{exercise*}[1.2.Y]
+    \begin{enumerate}
+        \item[(a)] Suppose you have two objects $A$ and $A'$ in a category $\mathscr{C}$, and maps
+        \begin{center}
+            \begin{tikzcd}
+                i_C:\mathrm{Mor}(C, A) \arrow[r] & \mathrm{Mor}(C, A')
+            \end{tikzcd}
+        \end{center}
+        that commute with the maps (1.2.11.1). Show that $i_C$ (as $C$ ranges over the objects of $\mathscr{C}$) are induced from a unique morphism $g:A\rightarrow A'$. More precisely, show that there is a unique morphism $g:A\rightarrow A'$ such that for all $C\in \mathscr{C}$, $i_C$ is $u\mapsto g\circ u$. 
+
+        \item[(b)] If furthermore the $i_C$ are all bijections, show that the resulting $g$ is an isomorphism.
+    \end{enumerate}
+\end{exercise*}
+
+\vspace{0.1in}
+
+\begin{proof}
+		(a) The statement that the morphisms commute with the maps (1.2.11.1) is equivalent to saying that $i$ defines a natural transformation $i:h_A\rightarrow h_{A'}$. We then have a morphism $i_A:h_A(A)\rightarrow h_{A'}(A)$, i.e., a map $i_A:\mathrm{Mor}(A, A)\rightarrow\mathrm{Mor}(A,A')$. As $1_A\in \mathrm{Mor}(A, A)$, this defines an element $g=i_A(1_A)\in \mathrm{Mor}(A, A')$. Now fix an object $C$ of $\mathscr{C}$, then for all $u:C\rightarrow A$:
+    \begin{align*}
+        i_C(u) &= i_C(1_A\circ u) \\
+        &= i_C(h_A(u)(1_A)) \tag{definition of what $h_A$ does to arrows} \\
+        &= h_{A'}(u)(i_C(1_A)) \tag{naturality of $i$} \\
+        &= h_{A'}(g) \\
+        &= g\circ u
+    \end{align*}
+    This completes the first part. We now show uniqueness of $g$. Suppose there was another such $g':A\rightarrow A'$. Then it follows that:
+    \begin{align*}
+        g' = g'\circ 1_A = i_A(1_A) = g
+    \end{align*}
+    proving uniqueness. 
+
+    \vspace{0.1in}
+
+    (b) Suppose that each $i_C$ is a bijection. We must show that $g=i_A(1_A)$ is an isomorphism. By the surjectivity of $i_{A'}$ since $1_{A'}\in\mathrm{Mor}(A',A')$, there is a $j\in\mathrm{Mor}(A',A)$ such that $i_{A'}(j)=1_{A'}$. By part (a), it follows that $1_{A'}=i_{A'}(j)= g\circ j$. Now observe that:
+    \begin{align*}
+        i_A (j\circ g) &= i_A(h_A(g)(j)) \\
+        &= h_{A'}(g)(i_{A'}(j)) \tag{naturality of $i$} \\
+        &= h_{A'}(g)(1_{A'}) \\
+        &= g \\
+        &= i_A(1_A)
+    \end{align*}
+    Hence the injectivity of $i_A$ implies that $j\circ g=1_A$, showing that $g$ is an isomorphism with inverse $j$. 
+\end{proof}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 1.2.Z %%%%%%%%%%%%%%
+
+\begin{exercise*}[1.2.Z]
+    \begin{enumerate}
+        \item[(a)] Suppose $A$ and $B$ are objects in a category $\mathscr{C}$. Give a bijection between the natural transformations $h^A\rightarrow h^B$ of covariant functions $\mathscr{C}\rightarrow \mathrm{Sets}$ and the morphisms $B\rightarrow A$. 
+
+        \item[(b)] State and prove the corresponding fact for contravariant functors $h_A$. Remark: A contravariant functor $F$ from $\mathscr{C}$ to $\mathrm{Sets}$ is said to be \textbf{representable} if there is a natural isomorphism
+        \begin{align*}
+            \xi: F\rightarrow h_A
+        \end{align*}
+        Thus the representing object $A$ is determined up to a unique isomorphism by the pair $(F, \xi)$. There is a similar definition for covariant functors. 
+    \end{enumerate}
+\end{exercise*}
+
+\vspace{0.1in}
+
+\begin{proof}
+		(a) For notation, let $\mathrm{Nat}(h^A, h^B)$ denote the set of natural transformations from $h^A$ to $h^B$. We then define a map of sets $f:\mathrm{Nat}(h^A, h^B)\rightarrow \mathrm{Mor}(B, A)$ by $\eta\mapsto \eta_A(1_A)$. We first show injectivity. Suppose $\eta, \theta\in \mathrm{Nat}(h^A, h^B)$ and $f(\eta)=f(\theta)$, i.e., $\eta_A(1_A)=\theta_A(1_A)$. Then for all objects $C$ of $\mathscr{C}$ and arrows $u:A\rightarrow C$:
+    \begin{align*}
+        \eta_C(u) = \eta_C(h^A(u)(1_A)) = h^B(u)(\eta_A(1_A))=h^B(u)(\theta_A(1_A))=\theta_C(h^A(u)(1_A))=\theta_C(u)
+    \end{align*}
+    as $u$ was arbitrary, this implies $\eta_C=\theta_C$. Then as $C$ was arbitrary, it follows that $\eta=\theta$, showing injectivity. Now fix some $u:B\rightarrow A$. Then we define a natural transformation $\alpha:h^A\rightarrow h^B$ as follows. For each object $C$ of $\mathscr{C}$, let $\alpha_C:h^A(C)\rightarrow h^B(C)$ be the map given by $v\mapsto v\circ u$. It is not hard to show this a natural transformation and that $f(\alpha)=\alpha_A(1_A)=u$, proving surjectivity. 
+
+    \vspace{0.1in}
+
+    (b) For contravariant functors, the statement is that there is a bijection between $\mathrm{Nat}(h_A, h_B)$ and $\mathrm{Mor}(A, B)$. In this case the map is defined by sending a functor $\eta:h_A\rightarrow h_B$ to the map $\eta_A(1_A):A\rightarrow B$. This is precisely the construction from exercise 1.2.Y where we showed in part (a) that this map is injective. For surjectivity, given a morphism $u:A\rightarrow B$ define the natural transformation $\alpha:h_A\rightarrow h_B$ by $\alpha_C(v)=u\circ v$ for all objects $C$ of $\mathscr{C}$ and arrows $v:C\rightarrow A$. Then by construction, under our map $\alpha$ is sent to $\alpha_A(1_A)=u$, proving surjectivity. 
+\end{proof}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 1.3.C %%%%%%%%%%%%%%
+
+\begin{exercise*}[1.3.C]
+    Show that in the category $\mathrm{Sets}$,
+    \begin{align*}
+        \left\{ (a_i)_{i\in\mathscr{J}}\in \prod_{i}A_i \;: \; F(m)(a_j)=a_k\;\mathrm{for\;all\;}m\in\mathrm{Mor}_\mathscr{J}(j, k)\subseteq\mathrm{Mor}(\mathscr{J})\right\}
+    \end{align*}
+    along with the obvious projection maps to each $A_i$, is the limit $\lim\limits_{\mathscr{J}} A_i$.
+\end{exercise*}
+
+\vspace{0.1in}
+
+\begin{proof}
+	
+\end{proof}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 1.3.G %%%%%%%%%%%%%%
+
+\begin{exercise*}[1.3.G]
+    Generalize exercise 1.3.D(a) to interpret localization of an integral domain as a colimit over a filtered set: suppose $S$ is a multiplicative subset of $A$, and interpret $S^{-1}A=\colim\;\frac{1}{s}A$ where the colimit is over $s\in S$, and in the category of $A$-modules. (Aside: Can you make some version of this work even if $A$ isn't an integral domain, e.g., $S^{-1}A=\colim\;A_s$? This will work in the category of $A$-algebra.)
+\end{exercise*}
+
+\vspace{0.1in}
+
+\begin{proof}
+	
+\end{proof}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 1.4.C %%%%%%%%%%%%%%
+
+\begin{exercise*}[1.4.C]
+    Show that $(-)\otimes_A N$ and $\mathrm{Hom}_A(N, -)$ are adjoint functors. 
+\end{exercise*}
+
+\begin{proof}
+    Let $M$, $N$, and $P$ be $R$-modules.  To an $R$-bilinear map $f: M \times N \to P$ we may associate
+    an $R$-linear map $N \to P$ given by $n \mapsto f (m, n)$. Thus we obtain a map
+    $M \to \operatorname{Hom}_R(N, P)$ by $m \mapsto (n \mapsto f(m, n))$. On the other hand, to a map
+    $g: M \to \operatorname{Hom}_R(N, P)$, we may obtain a bilinear map given by $(m, n) \mapsto f(m)(n)$.
+    This describes a bijection, and due to the correspondence between $R$-bilinear maps $M \times N \to P$
+    and $R$-linear maps $M \otimes N \to P$, we obtain the desired adjunction.
+    
+    [\textit{NB: Some ideas missing here, but these are relatively easy to fill in by examining the universal property of the tensor product. }]
+\end{proof}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 1.4.E %%%%%%%%%%%%%%
+
+\begin{exercise*}[1.4.E]
+    Suppose $B\rightarrow A$ is a morphism of rings. If $M$ is an $A$-module, you can create a $B$-module $M_N$ by considering it as a $B$-module. This gives a functor $-_B:\mathrm{Mod}_A\rightarrow \mathrm{Mod}_B$. Show that this functor is right-adjoint to $-\otimes_B A$. In other words, describe a bijection
+    \begin{align*}
+        \mathrm{Hom}_A(N\otimes_B A, M)\cong \mathrm{Hom}_B(N, M_B)
+    \end{align*}
+    functorial in both arguments. 
+\end{exercise*}
+
+\begin{proof}
+    First, note that $M \cong M_B \otimes_B A$. To see this, observe that we have maps of $A$-modules 
+    $m \mapsto m \otimes_B 1$ and $m' \otimes a \mapsto am'$, which are inverse to one another.
+    
+    Given a $B$-linear map $f:N \to M_B$, we may form the map $(f, \operatorname{id}_A): N \otimes_B A \to M_B \otimes_B A$, hence a map $N \otimes_B A \to M$. Conversely, given an $A$-linear map 
+    $g: N \otimes_B A \to M$, it induces a $B$-linear map $g_B$, and we may write
+    \[ N \xrightarrow{\iota} N \otimes_B B \xrightarrow{\operatorname{id} \otimes \,\varphi} N \otimes_B A \xrightarrow{g_B} M_B\]
+    (where $\iota$ is the canonical inclusion), obtaining a map $N \to M_B$. One may check that these map correspondences are inverses of one another,
+    so that we obtain an adjunction. Note 
+\end{proof}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 1.5.A %%%%%%%%%%%%%%
+
+\begin{exercise*}[1.5.A]
+    Let $(A^\bullet, f^\bullet)$ be a complex in a fixed abelian category. Describe exact sequences:
+    \begin{equation*}
+        \begin{tikzcd}
+            0 \arrow[r] & \mathrm{im}(f^i) \arrow[r] & A^{i+1} \arrow[r] & \mathrm{coker}(f^i) \arrow[r] & 0 \\
+            0 \arrow[r] & H^i(A^\bullet) \arrow[r] & \mathrm{coker}(f^{i-1}) \arrow[r] & \mathrm{im}(f^i) \arrow[r] & 0
+        \end{tikzcd}
+    \end{equation*}
+\end{exercise*}
+
+\vspace{0.1in}
+
+\begin{proof}
+	
+\end{proof}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 1.5.B %%%%%%%%%%%%%%
+
+\begin{exercise*}[1.5.B]
+    Suppose:
+    \begin{equation*}
+        \begin{tikzcd}
+            0 \arrow[r, "d^0"] & A^1 \arrow[r, "d^1"] & \ldots \arrow[r, "d^{n-1}"] & A^n \arrow[r, "d^n"] & 0  
+        \end{tikzcd}
+    \end{equation*}
+    is a complex of finite-dimensional $k$-vector spaces. Define $h^i(A^\bullet):= \dim(H^i(A^\bullet))$. Show that $\sum(-1)^i\dim(A^i)=\sum(-1)^ih^i(A^\bullet)$. In particular, if $A^\bullet$ is exact, then $\sum(-1)^i\dim(A^i)=0$. 
+\end{exercise*}
+
+\vspace{0.1in}
+
+\begin{proof}
+	
+\end{proof}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 1.5.C %%%%%%%%%%%%%%
+
+\begin{exercise*}[1.5.C]
+    Suppose $\mathscr{C}$ is an abelian category. Define the category $\mathrm{Com}_{\mathscr{C}}$ of complexes as follows. The objects are infinite complexes:
+    \begin{equation*}
+        \begin{tikzcd}
+            A^\bullet:\;\; \ldots \arrow[r] & A^{i-1} \arrow[r, "f^{i-1}"] & A^i \arrow[r, "f^i"] & A^{i+1} \arrow[r, "f^{i+1}"] & \ldots
+        \end{tikzcd}
+    \end{equation*}
+    in $\mathscr{C}$, and the morphisms $A^\bullet \rightarrow B^\bullet$ are commuting diagrams
+    \begin{equation*}
+        \begin{tikzcd}
+            \ldots \arrow[r] & A^{i-1} \arrow[r, "f^{i-1}"] \arrow[d] & A^i \arrow[r, "f^i"] \arrow[d] & A^{i+1} \arrow[r, "f^{i+1}"] \arrow[d] & \ldots \\
+            \ldots \arrow[r] & B^{i-1} \arrow[r, "g^{i-1}"] & B^{i} \arrow[r, "g^i"] & B^{i+1} \arrow[r, "g^{i+1}"] & \ldots
+        \end{tikzcd}
+    \end{equation*}
+    Show that $\mathrm{Com}_{\mathscr{C}}$ is an abelian category. 
+\end{exercise*}
+
+\vspace{0.1in}
+
+\begin{proof}
+	
+\end{proof}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 1.5.D %%%%%%%%%%%%%%
+
+\begin{exercise*}[1.5.D]
+    Show that morphisms $A^\bullet\rightarrow B^\bullet$ in $\mathrm{Com}_{\mathscr{C}}$ induce maps of homology $H^i(A^\bullet)\rightarrow H^i(B^\bullet)$. Show furthermore that $H^i$ is a covariant functor $\mathrm{Com}_{\mathscr{C}}\rightarrow \mathscr{C}$.
+\end{exercise*}
+
+\vspace{0.1in}
+
+\begin{proof}
+	
+\end{proof}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 1.5.I %%%%%%%%%%%%%%
+
+\begin{exercise*}[1.5.I]
+    Suppose $F:\mathscr{A}\rightarrow \mathscr{B}$ is a covariant functor of abelian categories, and $C^\bullet$ is a complex in $\mathscr{A}$. 
+    \begin{enumerate}
+        \item[(a)] ($F$ right-exact yields $FH^\bullet\rightarrow H^\bullet F$) If $F$ is right-exact, describe a natural morphism $FH^\bullet\rightarrow H^\bullet F$. 
+        \item[(b)] ($F$ left-exact yields $FH^\bullet\leftarrow H^\bullet F$) If $F$ is left-exact, describe a natural morphism $H^\bullet F\rightarrow FH^\bullet$. 
+        \item[(c)]($F$ exact yields $FH^\bullet \leftrightarrow H^\bullet F$) If $F$ is exact, show the morphisms of (a) and (b) are inverse and thus isomorphisms. 
+    \end{enumerate}
+\end{exercise*}
+
+\vspace{0.1in}
+
+\begin{proof}
+	
+\end{proof}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 1.6.E %%%%%%%%%%%%%%
+
+\begin{exercise*}[1.6.E]
+    Suppose $\mu:A^\bullet\rightarrow B^\bullet$ is a morphism of complexes. Suppose $C^\bullet$ is the single complex associated to the double complex $A^\bullet\rightarrow B^\bullet$. Show that there is a long exact sequence of complexes:
+    \begin{equation*}
+        \begin{tikzcd}
+            \ldots \arrow[r] & H^{i-1}(C^\bullet) \arrow[r] & H^i(A^\bullet) \arrow[r] & H^i(B^\bullet) \arrow[r] & H^i(C^\bullet) \arrow[r] & H^{i-1}(A^\bullet) \arrow[r] & \ldots
+        \end{tikzcd}
+    \end{equation*}
+\end{exercise*}
+
+\vspace{0.1in}
+
+\begin{proof}
+	
+\end{proof}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Chapter 2 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%% 2.2.A %%%%%%%%%%%%%%
+
+\begin{exercise*}[2.2.A]
+    Given any topological space $X$, we have a "category of open sets" where the objects
+    are the open sets and the morphisms are inclusions. Verify that the data of a presheaf is
+    precisely the data of a contravariant functor from the category of open sets of $X$ to
+    the category of sets.
+\end{exercise*}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 2.2.C %%%%%%%%%%%%%%
+
+\begin{exercise*}[2.2.C]
+    The identity and gluability axioms for a sheaf $\mathcal{F}$ may be interpreted
+    as saying that $\mathcal{F}(\cup_{i \in I}U_i)$ is a certain limit. What is that limit?
+\end{exercise*}
+
+\vspace{0.1in}
+
+\begin{proof}
+    Consider an open subset $U\subseteq X$ and an open cover $U=\bigcup_{i\in I}U_i$. Consider the index category $\Lambda$:
+    \begin{equation*}
+        \begin{tikzcd}
+            \bullet \arrow[r, bend right] \arrow[r, bend left] & \bullet
+        \end{tikzcd}
+    \end{equation*}
+    where all identity arrows have been omitted. We then consider the functor $L:\Lambda\rightarrow\mathrm{Sets}$ given by:
+    \begin{equation*}
+        \begin{tikzcd}
+            \bullet \arrow[rr, bend left,] \arrow[rr, bend right,] & & \bullet \arrow[rr, Rightarrow, "L"] & & \prod\limits_{i\in I}\mathcal{F}(U_i) \arrow[rr, shift left = 2, "f"] \arrow[rr, shift right = 3, "g"'] & & \prod\limits_{i, j\in I} \mathcal{F}(U_i\cap U_j)
+        \end{tikzcd}
+    \end{equation*}
+    where the two horizontal maps on the left are defined by the formulas:
+    \begin{align*}
+        f((\sigma_i)_{i\in I}) &= (\mathrm{res}^{U_{i}}_{U_i\cap U_j}(\sigma_i))_{i, j\in I} \\
+        g((\sigma_i)_{i\in I}) &= (\mathrm{res}^{U_j}_{U_i\cap U_j}(\sigma_j))_{i, j\in I}
+    \end{align*}
+    We claim that $\mathcal{{F}}(U)=\lim L$ where the map $\mathcal{F}(U)\rightarrow \prod_{i\in I}\mathcal{F}(U_i)$ is given by the product of the restriction maps $\mathrm{res}^U_{U_i}$, if and only if $\mathcal{F}$ satisfies the gluing and identity axiom for the open subset $U\subseteq X$ and cover $\{U_i:i\in I\}$. I am not going to prove this in full detail because it is more just notation, but I will write at least the proof that $\mathcal{F}(U)=\lim L$ implies the gluing and identity axiom. 
+
+    \vspace{0.1in}
+
+    So, consider some sections $\alpha_i\in \mathcal{F}(U_i)$ such that for all $i, j\in I$ we have $\mathrm{res}^{U_i}_{U_i\cap U_j}(\alpha_i)=\mathrm{res}^{U_j}_{U_i\cap U_j}(\alpha_j)$. We then consider the set $C$ consisting of just the tuple $(\alpha_i)_{i\in I}$ and the inclusion $\iota:C\rightarrow \prod_{i\in I}\mathcal{F}(U_i)$. Then it can be checked that $f\iota=g\iota$. The universal property for $\mathcal{F}(U)=\lim L$ then implies there is a unique map $\overline{\iota}:C\rightarrow\mathcal{F}(U)$ making the following diagram commute:
+    \begin{equation*}
+        \begin{tikzcd}
+            \mathcal{F}(U) \arrow[r] & \prod\limits_{i\in I}\mathcal{F}(U_i) \arrow[rr, shift left = 2, "f"] \arrow[rr, shift right = 3, "g"'] & & \prod\limits_{i, j\in I} \mathcal{F}(U_i\cap U_j) \\
+            C \arrow[u, "\overline{\iota}"] \arrow[ru, "\iota"] & & &
+        \end{tikzcd}
+    \end{equation*}
+    It can be checked that $\alpha=\overline{\iota}((\alpha_i)_{i\in I})\in \mathcal{F}(U)$ is the unique element with the property that $\mathrm{res}^U_{U_i}(\alpha)=\alpha_i$. This shows the gluing and identity axioms hold for $U$ and it's open cover $\{U_i:i\in I\}$. The other direction is the same idea. 
+\end{proof}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 2.2.D %%%%%%%%%%%%%%
+
+\begin{exercise*}[2.2.D]
+    \begin{enumerate}
+        \item Verify that the presheaves of (smooth functions, continuous functions, 
+        real-analytic functions, or plain real-valued functions, on a manifold 
+        or $\mathbb{R}^n$) are actually sheaves.
+        \item Show that real-valued continuous functions on (open sets of) a topological space
+        $X$ form a sheaf.
+    \end{enumerate}
+\end{exercise*}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 2.2.F %%%%%%%%%%%%%%
+
+\begin{exercise*}[2.2.F]
+    Suppose $Y$ is a topological space. Show that "continuous maps to $Y$" form a sheaf
+    of sets on $X$. More precisely, to each open set $U$ of $X$, we associate the set of
+    continuous maps of $U$ to $Y$. Show that this forms a sheaf. 
+\end{exercise*}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 2.2.H %%%%%%%%%%%%%%
+
+\begin{exercise*}[2.2.H]
+    Suppose $\pi: X \to Y$ is a continuous map, and $\mathcal{F}$ is a presheaf on $X$.
+    Then define a presheaf $\pi_*\mathcal{F}$ on $Y$ by $\pi_*\mathcal{F}(V) = \mathcal{F}(\pi^{-1}(V))$, where $V$ is an open subset of $Y$. Show that $\pi_*\mathcal{F}$ is a
+    presheaf on $Y$, and is a sheaf if $\mathcal{F}$ is. This is known as the pushforward
+    of $\mathcal{F}$, among other things.
+\end{exercise*}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 2.2.I %%%%%%%%%%%%%%
+
+\begin{exercise*}[2.2.I]
+    Suppose $\pi: X \to Y$ is a continuous map, and $\mathcal{F}$ is a sheaf of sets (or rings, or $A$-modules) on $X$. If $\pi(p) = q$, describe the natural morphism of stalks
+    $(\pi_*\mathcal{F})_q \to \mathcal{F}_p$.
+\end{exercise*}
+
+\begin{proof}
+    One way to see this is to use explicit representatives of the stalks. Let 
+    $s_q \in (\pi_*\mathcal{F})_q$ be represented by $(s, V)$ where $s \in U = \pi^{-1}(V)$.
+    We can define the map by $f: (s, V) \mapsto (s, U)$. This commutes with restriction maps:
+    If $(s_1, V_1)$ and $(s_2, V_2)$ represent $s_q$ with $V_1 \subseteq V_2$, and $U_i = \pi^{-1}(V_i)$, then it's clear that $(s_1, U_1)$ and $(s_2, U_2)$ represent the same
+    element of the stalk at $p$. From this, we can see that the map is well-defined: take
+    two different representatives for $s_q$ defined over open sets $W_1$ and $W_2$ and
+    restrict to the intersection $W_1 \cap W_2$. Then the previous remark on commuting with
+    restrictions gives a well-defined map.
+\end{proof}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 2.2.J %%%%%%%%%%%%%%
+
+\begin{exercise*}[2.2.J]
+    If $(X, \mathcal{O}_X)$ is a ringed space, and $\mathcal{F}$ is an $\mathcal{O}_X$-module,
+    describe how for each $p \in X$, $\mathcal{F}_p$ is an $\mathcal{O}_{X, \,p}$-module.
+\end{exercise*}
+
+\begin{proof}
+    To give a slightly simpler style of proof than the previous, let $U$ be an
+    open containing $p$, $s \in \mathcal{O}_X(U)$, $m \in \mathcal{F}(U)$, and $(sm)_p$ the image of $sm$ in $\mathcal{F}_p$. Noting that $(sm, U) = (s, U)\cdot(m, U)$, taking
+    the colimit over all open $V$ containing $p$ gives that $(sm)_p = s_p \cdot m_p$,
+    which gives the result.
+\end{proof}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 2.4.A %%%%%%%%%%%%%%
+
+\begin{exercise*}[2.4.A]
+    Prove that a section of a sheaf of sets is determined by its germs, i.e., the natural map
+    \[\varphi: \mathcal{F}(U) \to \prod_{p \in U}\mathcal{F}_p\]
+    is injective.
+\end{exercise*}
+
+\begin{proof}
+    Let $s,t \in \mathcal{F}(U)$ be sections such that $\varphi(s) = \varphi(t)$. Then for each $p \in X$, $(s, U)$ and $(t, U)$ represent the same germ $s_p$, and hence there exists
+    an open set $U_p$ containing $p$ for which $s\vert_{U_p} = t\vert_{U_p}$. It's clear that these $U_p$ form an open cover of $U$, and since $s$ and $t$ agree on this open cover,
+    the identity axiom for sheaves yields $s = t$.
+\end{proof}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 2.4.B %%%%%%%%%%%%%%
+
+\begin{exercise*}[2.4.B]
+    Prove that any choice of compatible germs for a sheaf of sets $\mathcal{F}$ over $U$
+    is the image of a section of $\mathcal{F}$ over $U$ (that is, lies in the image of the
+    map described in exercise 2.4.A)
+\end{exercise*}
+
+\begin{proof}
+    Let us recall that a set of compatible germs is an element $(s_p)_{p \in U} \in \prod_{p \in U}\mathcal{F}_p$ where, for all $p \in U$, there is a representative
+    $(\tilde{s}_p, U_p)$ (where $p \in U_p$) such that the germ of $\tilde{s}_p$ at $q \in U_p$ is $s_q$. Equivalently, there is an open cover $\{U_i\}$ of $U$ and sections $f_i \in \mathcal{F}(U_i)$ such that, if $p \in U_i$, then $s_p$ is the germ of $f_i$ at $p$.
+
+    To prove the result, we prefer the second definition. Let $(s_p)_{p \in U}$ be a set of compatible germs, $\{U_i\}$ an open cover of $U$, and $\{f_i\}$ sections as above.
+    If $p \in U_i \cap U_j$, then $s_p$ is the germ of $f_i$ and $f_j$ at $p$, i.e., $(f_i, U_i) \sim (f_j, U_j)$, meaning there is some open set $W_p \subseteq U_i \cap U_j$ containing $p$
+    on which $f_i\vert_{W_P} = f_j\vert_{W_p}$. Varying over all $p \in U_i \cap U_j$, the $W_p$ form an open cover of $U_i \cap U_j$. Using the identity axiom, this implies
+    that $f_i\vert_{U_i \cap U_j} = f_j\vert_{U_i \cap U_j}$. Thus the $f_i$ are sections over an open cover that agree on overlaps, so we may glue them to form a section 
+    $f \in \mathcal{F}(U)$, hence the set of compatible germs arose from a section over $U$.
+    
+\end{proof}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 2.4.C %%%%%%%%%%%%%%
+
+\begin{exercise*}[2.4.C]
+    If $\phi_1$ and $\phi_2$ are morphisms from a presheaf of sets $\mathcal{F}$ to a sheaf
+    of sets $\mathcal{G}$ that induce the same maps on each stalk, show that
+    $\phi_1 = \phi_2$. Hint: consider the following diagram:
+    \[\begin{tikzcd}
+	   {\mathcal{F}(U)} & {\mathcal{G}(U)} \\
+	   {\prod_{p \in U}\mathcal{F}_p} & {\prod_{p \in U}\mathcal{G}_p}
+	   \arrow[from=1-1, to=1-2]
+	   \arrow[from=1-1, to=2-1]
+	   \arrow[from=1-2, to=2-2]
+	   \arrow[from=2-1, to=2-2]
+    \end{tikzcd}\]
+\end{exercise*}
+
+\begin{proof}
+	    Assume that $\phi_1,p=\phi_2,p$ for all $p\in X$. By definition the above diagram commutes for all open subsets $U\subseteq X$, where there is really a separate diagram for $\phi_1$ and $\phi_2$. In particular the commutative diagrams are:
+    \begin{equation*}
+        \begin{tikzcd}
+            \mathcal{F}(U) \arrow[rr, "\phi_{1,U}"] \arrow[d] & & \mathcal{G}(U) \arrow[d] & \mathcal{F}(U) \arrow[rr, "\phi_{2,U}"] \arrow[d] & & \mathcal{G}(U) \arrow[d] \\
+            \prod_{p\in U}\mathcal{F}_p \arrow[rr, "\prod_{p\in U}\phi_{1,p}"] & & \prod_{p\in U}\mathcal{G}_p & \prod_{p\in U}\mathcal{F}_p \arrow[rr, "\prod_{p\in U}\phi_{2,p}"] & & \prod_{p\in U}\mathcal{G}_p
+        \end{tikzcd}
+    \end{equation*}
+    The assumption implies the bottom horizontal arrows in both diagrams are equal. Problem 2.4.A and the commutativity of both diagrams then implies that $\phi_{1, U}=\phi_{2, U}$. As $U\subseteq X$ was arbitrary, it follows that $\phi_1=\phi_2$.
+\end{proof}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 2.4.M %%%%%%%%%%%%%%
+
+\begin{exercise*}[2.4.M]
+    Suppose $\phi: \mathcal{F} \to \mathcal{G}$ is a morphism of sheaves of sets on a 
+    topological space $X$. Show that the following are equivalent:
+    \begin{enumerate}
+        \item $\phi$ is a monomorphism in the category of sheaves.
+        \item $\phi$ is injective on the level of stalks.
+        \item $\phi$ is injective on the level of open sets.
+    \end{enumerate}
+\end{exercise*}
+
+\begin{proof}
+        ($(2)\rightarrow(1)$) Suppose that $\mathcal{H}$ is a sheaf on $X$ and $\alpha_1, \alpha_2:\mathcal{H}\rightarrow \mathcal{F}$ are morphisms such that $\phi\alpha_1=\phi\alpha_2$. Then for each $p\in X$ it follows that $\phi_p\alpha_{1, p}=\phi_p\alpha_{2, p}$. So, by (2) this implies that $\alpha_{1, p}=\alpha_{2,p}$. Problem 2.4.C then implies that $\alpha_1=\alpha_2$, thus $\phi$ is a monomorphism. 
+
+    \vspace{0.1in}
+
+    ($(1)\rightarrow(3)$) Since monomorphisms in the category of sets are injections, it suffices here to show that each $\phi_U$ is a monomorphism. So, fix $U\subseteq X$ open and consider a set $C$ together with maps $f_1, f_2:C\rightarrow\mathcal{F}(U)$ such that $\phi_Uf=\phi_Uf_2$. We must show that $f_1=f_2$. To do so, consider the sheaf $\mathcal{I}$ on $X$ defined as follows. On an open subset $V\subseteq X$:
+    \begin{align*}
+        \mathcal{I}(U) &= \begin{cases}
+            C & \mathrm{if}\;V\subseteq U \\
+            \emptyset & \mathrm{else}
+        \end{cases}
+    \end{align*}
+    For open subsets $V\subseteq W\subseteq X$ the restriction map $\mathrm{res}^W_V:\mathcal{I}(W)\rightarrow\mathcal{I}(V)$ is defined by:
+    \begin{align*}
+        \mathrm{res}^W_V &= \begin{cases}
+            \mathrm{id}_C & \mathrm{if}\; W\subseteq U \\
+            \mathrm{the\;unique\;map\;}\emptyset\rightarrow\mathcal{I}(V) & \mathrm{else}
+        \end{cases}
+    \end{align*}
+    Then we define two morphisms $\alpha_1, \alpha_2:\mathcal{I}\rightarrow \mathcal{F}$ by:
+    \begin{align*}
+        \alpha_{i, V} &= \begin{cases}
+            \mathrm{res}^U_Vf_i & \mathrm{if\;}V\subseteq U \\
+            \mathrm{the\;unique\;map\;}\emptyset\rightarrow\mathcal{F}(V) & \mathrm{else}
+        \end{cases}
+    \end{align*}
+    for $i=1, 2$ and $V\subseteq X$ open. Then by assumption as $\phi_Uf_1=\phi_Uf_2$, it follows that $\phi\alpha_1=\phi\alpha_2$. So, (1) implies that $\alpha_1=\alpha_2$. In particular, for the open subset $U\subseteq X$:
+    \begin{align*}
+        f_1 = \mathrm{res}^U_Uf = \alpha_{1, U} = \alpha_{2, U} = \mathrm{res}^U_Uf_2 = f_2
+    \end{align*}
+    concluding this part. 
+
+    \vspace{0.1in}
+
+    ($(3)\rightarrow (2)$) Consider a point $p\in X$. The map $\phi_p:\mathcal{F}_p\rightarrow \mathcal{G}_p$ is defined by applying the map $\phi$ to a representative of an element of $\mathcal{F}_p$. Since all the maps $\phi_U$ are injective for all open subsets $U\subseteq X$, this implies that $\phi_p$ is also injective. 
+\end{proof}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 2.4.N %%%%%%%%%%%%%%
+
+\begin{exercise*}[2.4.N]
+    In the notation of the previous exercise, show that the following are equivalent:
+    \begin{enumerate}
+        \item $\phi$ is an epimorphism in the category of sheaves.
+        \item $\phi$ is surjective on the level of stalks.
+    \end{enumerate}
+\end{exercise*}
+
+\begin{proof}
+    Assume that $\phi$ is surjective on the level of stalks, i.e., that for every point $p \in X$, the induced map $\mathcal{F}_p \to \mathcal{G}_p$ is a surjection. Now let $\mathcal{H}$
+    be a third sheaf, and suppose we have maps $\alpha, \beta : \mathcal{G} \to \mathcal{H}$ such that $\alpha \phi = \beta \phi$. These induce maps on stalks $\alpha_p\phi_p$ and
+    $\beta_p\phi_p$ which are equal. Since surjections of sets are epimorphisms, we obtain that $\alpha_p = \beta_p$ for any $p$, so that $\alpha$ and $\beta$ induce the same
+    map on stalks, which implies that the maps are equal.
+
+    Now assume that $\phi$ is an epimorphism in the category of sheaves. Let $i_{p,*}S$ be the skyscraper sheaf supported at $p$ with values in the set $S = \{0,1\}$.
+    Define a map $\alpha: \mathcal{G} \to i_{p,*}S$ in the following way: if $p \in U$, then $\alpha(U)(y) = 0$ if $(y, U) \in \operatorname{im}\phi_p$, and $\alpha(U)(y) = 1$ otherwise.
+    Define another map $\beta: \mathcal{G} \to i_{p, *}S$ by: if $p \in U$, then $\beta(U)(y) = 0$. In both cases, if $p \not\in U$, then the map is the trivial map.
+    We have $\alpha\phi = \beta\phi$: if $p \in U$, then for $x \in \mathcal{F}(U)$, $(x, U) \in \mathcal{F}_p$, hence $(\phi(U)(x), U) \in \operatorname{im}\phi_p$, and postcomposition with $\alpha(U)$ and $\beta(U)$ yield
+    $0$. This implies that $\alpha = \beta$ as maps of sheaves. Then for any $U$ containing $p$, $\alpha(U)(y) = 0$, implying that $(y, U) \in \operatorname{im}\phi_p$, which yields
+    surjectivity of stalks.
+\end{proof}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 2.6.A %%%%%%%%%%%%%%
+
+\begin{exercise*}[2.6.A]
+    Let $\mathcal{F}, \mathcal{G}$ be sheaves of abelian groups on a topological space $X$, and let $\varphi:\mathcal{F}\to\mathcal{G}$. Show that there is a natural isomorphism of abelian groups
+    \[\ker(\varphi)_p \to \ker(\varphi_p)\]
+    for all $p \in X$.
+\end{exercise*}
+
+\begin{proof}
+    Let $p \in X$ and consider the germ (represented by) $(f, U) \in \ker(\varphi)_p$. Then in fact $(f, U) \in \ker(\varphi_p)$. To see this, the first condition says that 
+    $\varphi_U(f) = 0$, and mapping the germ through $\varphi_p$, we have $(f, U) \mapsto (\varphi_U(f), U) = (0, U)$. Thus we define a map $\alpha: \ker(\varphi)_p \to \ker(\varphi_p)$
+    by $(f, U) \mapsto (f, U)$. It's quick to verify that this is a well-defined group homomorphism; we must then check injectivity and surjectivity. For the former,
+    assume that $(f, U) \mapsto 0_p$, where $0_p$ is the germ of the zero section. By the definition of $\alpha$, we must have that, for some open set $W \subseteq U$
+    containing $p$, $f\vert_W = 0$, so that $(f, U) \sim 0_p$ to begin with. For surjectivity, let $(g, V) \in \ker(\varphi_p)$. Then $(\varphi_V(g), V) \sim (0, W)$
+    for some open $W \subseteq V$. Expressing this differently, $\varphi_V(g)\vert_W = 0$, but this is equivalent to $\varphi_W(g\vert_W) = 0$, hence
+    $g\vert_W \in \ker(\varphi_W)$. Then $(g\vert_W, W) \mapsto (g, V)$ gives the desired surjectivity (since $(g\vert_W, W) \sim (g, V)$).
+    
+\end{proof}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Chapter 3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%% 3.1.A %%%%%%%%%%%%%%
+
+\begin{exercise*}[3.1.A]
+    Suppose that $\pi:X\rightarrow Y$ is a continuous map of differentiable manifolds (as topological spaces - not a proiri smooth). Show that $\pi$ is smooth if smooth functions pull back to smooth functions. 
+\end{exercise*}
+
+\vspace{0.1in}
+
+\begin{proof}
+	
+\end{proof}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 3.2.C %%%%%%%%%%%%%%
+
+\begin{exercise*}[3.2.C]
+    Describe the set $\mathbb{A}^1_\Q$.
+\end{exercise*}
+
+\vspace{0.1in}
+
+\begin{proof}
+	
+\end{proof}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 3.2.J %%%%%%%%%%%%%%
+
+\begin{exercise*}[3.2.J]
+    Suppose $A$ is a ring, and $I$ an ideal of $A$. Let $\phi:A\rightarrow A/I$. Show that $\phi^{-1}$ gives an inclusion-preserving bijection between prime ideals $A/I$ and prime ideals of $A$ containing $I$. Thus we can picture $\mathrm{Spec}(A/I)$ as a subset of $\mathrm{Spec}(A)$. 
+\end{exercise*}
+
+\vspace{0.1in}
+
+\begin{proof}
+	
+\end{proof}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 3.2.K %%%%%%%%%%%%%%
+
+\begin{exercise*}[3.2.K]
+    Suppose $S$ is a multiplicative subset of $A$. Describe an order-preserving bijection of prime ideals $S^{-1}A$ with the prime ideals of $A$ that don't meet the multiplicative set $S$. 
+\end{exercise*}
+
+\vspace{0.1in}
+
+\begin{proof}
+	
+\end{proof}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 3.2.M %%%%%%%%%%%%%%
+
+\begin{exercise*}[3.2.M]
+    If $\phi:B\rightarrow A$ is a map of rings, and $\mathfrak{p}$ is a prime ideal of $A$, show that $\phi^{-1}(\mathfrak{p})$ is a prime ideal of $B$. 
+\end{exercise*}
+
+\vspace{0.1in}
+
+\begin{proof}
+	
+\end{proof}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 3.2.O %%%%%%%%%%%%%%
+
+\begin{exercise*}[3.2.O]
+    Consider the map of complex manifolds sending $\C\rightarrow \C$ via $x\mapsto y=x^2$. We interpret the "source" $\C$ as the "$x$-line", and the "target" $\C$ as the "$y$-line". You can picture it as the projection of the parabola $y=x^2$ in the $xy$-plane to the $y$-axis. Interpret the corresponding map of rings as given by $\C[y]\rightarrow\C[x]$ by $y\mapsto x^2$. Verify that the preimage (the fiber) above a point $a\in\C$ is the point $\pm\sqrt{a}\in\C$, using the definition given above. 
+\end{exercise*}
+
+\vspace{0.1in}
+
+\begin{proof}
+	
+\end{proof}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 3.2.P %%%%%%%%%%%%%%
+
+\begin{exercise*}[3.2.P]
+    Suppose $k$ is a field, and $f_1, \ldots, f_n\in k[x_1,\ldots, x_m]$ are given. Let $\phi:k[y_1, \ldots, y_n]\rightarrow k[x_1, \ldots, x_m]$ be the morphism of $k$-algebras defined by $y_i\mapsto f_i$. 
+    \begin{enumerate}
+        \item[(a)] Show that $\phi$ induces a map of sets $\mathrm{Spec}(k[x_1, \ldots, x_m]/I)\rightarrow \mathrm{Spec}(k[y_1, \ldots, y_n]/J)$ for any ideals $I\subseteq k[x_1, \ldots, x_m]$ and $J\subseteq k[y_1, \ldots, y_n]$ such that $\phi(J)\subseteq I$.
+        \item[(b)] Show that the map of part (a) sends the point $(a_1, \ldots, a_m)\in k^m$ to
+        \begin{align*}
+            (f_1(a_1,\ldots, a_m), \ldots, f_n(a_1,\ldots,a_m))\in k^n
+        \end{align*}
+    \end{enumerate}
+\end{exercise*}
+
+\vspace{0.1in}
+
+\begin{proof}
+	
+\end{proof}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 3.4.E %%%%%%%%%%%%%%
+
+\begin{exercise*}[3.4.E]
+    If $I_1, \dots, I_n$ are ideals of a ring $R$, show that $\sqrt{\cap_{i}^nI_i} = \cap_{i}^n \sqrt{I_i}$. 
+\end{exercise*}
+
+%%%%%%%%%%%%%% 3.4.H %%%%%%%%%%%%%%
+
+\begin{exercise*}[3.4.H]
+    By showing that closed sets pull back to closed sets, show that $\pi$ is a continuous map. Interpret $\mathrm{Spec}$ as a contravariant functor $\mathrm{Rings}\rightarrow \mathrm{Top}$.
+\end{exercise*}
+
+\vspace{0.1in}
+
+\begin{proof}
+	
+\end{proof}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 3.4.I %%%%%%%%%%%%%%
+
+\begin{exercise*}[3.4.I]
+    Suppose that $I, S\subseteq B$ are an ideal and multiplicative subset respectively. 
+    \begin{enumerate}
+        \item[(a)] Show that $\mathrm{Spec}(B/I)$ is naturally a closed subset of $\mathrm{Spec}(B)$. If $S=\{1, f, f^2, \ldots\}$ ($f\in B$), show that $\mathrm{Spec}(S^{-1}B)$ is naturally an open subset of $\mathrm{Spec}(B)$. Show that for an arbitrary $S$, $\mathrm{Spec}(S^{-1}B)$ need not be open or closed. 
+        \item[(b)] Show that the Zariski topology on $\mathrm{Spec}(B/I)$ (resp., $\mathrm{Spec}(S^{-1}B)$) is the subspace topology induced by inclusion in $\mathrm{Spec}(B)$.
+    \end{enumerate}
+\end{exercise*}
+
+\vspace{0.1in}
+
+\begin{proof}
+	
+\end{proof}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 3.4.J %%%%%%%%%%%%%%
+
+\begin{exercise*}[3.4.J]
+    Suppose $I\subseteq B$ is an ideal. Show that $f$ vanishes on $V(I)$ if and only if $f\in\sqrt{I}$
+\end{exercise*}
+
+\vspace{0.1in}
+
+\begin{proof}
+	
+\end{proof}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 3.5.E %%%%%%%%%%%%%%
+
+\begin{exercise*}[3.5.E]
+    Show that $D(f)\subseteq D(g)$ if and only if $f^n\in\langle g\rangle$ for some $n\geq 1$, if and only if $g$ is an invertible element of $A_f$.
+\end{exercise*}
+
+\vspace{0.1in}
+
+\begin{proof}
+	
+\end{proof}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%% 3.7.F %%%%%%%%%%%%%%
+
+\begin{exercise*}[3.7.F]
+    Show that $V(-)$ and $I(-)$ give a bijection between irreducible closed subsets of $\mathrm{Spec}(A)$ and prime ideals of $A$. From this conclude that in $\mathrm{Spec}(A)$ that there is a bijection between points of $\mathrm{Spec}(A)$ and the irreducible closed subsets of $\mathrm{Spec}(A)$. Hence each irreducible closed subset of $\mathrm{Spec}(A)$ has precisely one generic point - any irreducible closed subset $Z$ can be written uniquely as $\overline{\{z\}}$.
+\end{exercise*}
+
+\vspace{0.1in}
+
+\begin{proof}
+	
+\end{proof}
+
+\vspace{0.1in}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Chapter 8 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{exercise*}[8.3.G]
+    Show that if $X \to \operatorname{Spec} k$ is a finite morphism, then $X$ is a finite union of points with the discrete topology, each point with residue field a finite extension
+    of $k$.
+\end{exercise*}
+
+\begin{proof}
+    We proceed in several steps. First, note that, since finite morphisms are affine, we have $X = \operatorname{Spec} A$ for some ring $A$. Now, for any prime $\mathfrak{p} \subset A$,
+    we have a map $A \to A/\mathfrak{p}$, hence a map $k \to A/\mathfrak{p}$. Since $A$ is module-finite over $k$, and $A/\mathfrak{p}$ is module-finite over $A$, we have
+    $A/\mathfrak{p}$ is a finite $k$-vector space. An integral domain satisfying such a property must be a field, so that $\mathfrak{p}$ is maximal. Since the minimal primes of an affine
+    scheme yield its irreducible components, we have that the irreducible components of $X$ are given by closed points. Now, $A$ is a finite $k$-vector space, hence a finitely
+    generated $k$-algebra, so Noetherian, and we have a finite number of irreducible components corresponding to maximal ideals $\mathfrak{m}_i$. 
+    Since $A$ is also Artinian, $\operatorname{jac}(R)$ is nilpotent, and therefore
+    for some $d$, we have that $\mathfrak{m}_1^d\mathfrak{m}_2^d\dots \mathfrak{m}_n^d = 0$. By the Chinese remainder theorem, we have
+    \[ A \cong A/\mathfrak{m}_1^d \times \dots A/\mathfrak{m}_n^d\]
+    The primes of $A/\mathfrak{m}_i^d$ correspond to the prime ideals of $A$ containing $\mathfrak{m}_i^d$, but this is clearly only $\mathfrak{m}_i$. We may conclude
+    that $\operatorname{Spec} A \cong \bigsqcup_i \operatorname{Spec} A/\mathfrak{m}_i^d$. For the final assertion in the statement, for any of the closed points, the inclusion yields
+    a map $k \to A/\mathfrak{m}_i$ which is finite by assumption.
+\end{proof}
+
+\vspace{0.1in}
+
+\end{document}
