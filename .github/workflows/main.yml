@@ -1,2 +1,2 @@
-- name: GitHub Action for LaTeX
-  uses: xu-cheng/latex-action@4.0.0
+- name: Latexmk
+  uses: hspaans/latexmk-action@v2.1.1
